@@ -7,6 +7,8 @@ import api from "../utils/api";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
+
+  const [cards, setCards] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState({});
   const [isPopupEditProfileOpen, setIsPopupEditProfileOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -25,9 +27,10 @@ function App() {
   }
 
   React.useEffect(() => {
-    Promise.all([api.getUsersInfo()])
-      .then(([user]) => {
+    Promise.all([api.getUsersInfo(), api.getInitialCards()])
+      .then(([user, cards]) => {
         setCurrentUser(user);
+        setCards(cards);
         
       })
       .catch(err => console.log(err));
@@ -37,7 +40,7 @@ function App() {
     <>
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
-        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} />
+        <Main cards={cards} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} />
         <PopupEditProfile isOpen={isPopupEditProfileOpen} onClose={closeAllPopups} />
         <PopupAddPlace isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
       </CurrentUserContext.Provider>
