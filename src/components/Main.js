@@ -3,6 +3,7 @@ import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
+  
   const currentUser = React.useContext(CurrentUserContext);
   console.log(currentUser.name);
   return (
@@ -23,7 +24,9 @@ function Main(props) {
         </div>
       </div>
       <div className="places-list root__section">
-        <Card />
+        {props.cards.slice(0, 50).map((item) => (
+          <Card key={item._id} card={ item} />
+        ))}  
       </div>
     </>
   );
