@@ -5,7 +5,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 function Main(props) {
   
   const currentUser = React.useContext(CurrentUserContext);
-  console.log(currentUser.name);
+  
   return (
     <>
       <div className="profile root__section">
@@ -25,7 +25,7 @@ function Main(props) {
       </div>
       <div className="places-list root__section">
         {props.cards.slice(0, 50).map((item) => (
-          <Card key={item._id} card={ item} />
+          <Card key={item._id} card={ item} onCardClick={ props.onCardClick } />
         ))}  
       </div>
     </>
