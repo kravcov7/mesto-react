@@ -1,8 +1,23 @@
-# Mesto with Create React App
+# Mesto(React)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## О проекте
+- Mesto – интерактивный сервис для работы с фотографиями
+
+## Функциональность:
+- Загрузка информации о пользователе с сервера
+- Загрузка карточек с сервера
+- Редактирование профиля
+- Добавление новой карточки
+- Отображение количества лайков
+- Удаление карточки(можно удалять только свою)
+- Можно ставить и удалять лайки
+- Обновлять аватар
+
+## Стек
+`React`
+`CSS(flexbox, grid)`
+`BEM`
 
 ### `npm start`
 
