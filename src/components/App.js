@@ -6,6 +6,7 @@ import PopupAddPlace from "./PopupAddPlace";
 import api from "../utils/api";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import PopupImage from "./PopupImage";
+import PopupEditAvatar from "./PopupEditAvatar";
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [isPopupEditProfileOpen, setIsPopupEditProfileOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({
     isOpen: false,
     link: '',
@@ -27,6 +29,10 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
+
   function handleCardClick(link, name) {
     setSelectedCard({
       isOpen: true,
@@ -38,6 +44,7 @@ function App() {
   function closeAllPopups() {
     setIsPopupEditProfileOpen(false);
     setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
     setSelectedCard({
       isOpen: false,
       link: '',
@@ -58,10 +65,11 @@ function App() {
     <>
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
-        <Main cards={cards} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handleCardClick} />
+        <Main cards={cards} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} />
         <PopupEditProfile isOpen={isPopupEditProfileOpen} onClose={closeAllPopups} />
         <PopupAddPlace isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
         <PopupImage card={selectedCard} onClose={closeAllPopups} />
+        <PopupEditAvatar isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
       </CurrentUserContext.Provider>
     </>
   );
