@@ -80,11 +80,32 @@ function App() {
       .catch(err => console.log('Нельзя удалять чужие карточки', err))
   }
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    if(!isLiked) {
+      api.setLikeCard(card._id)
+        .then((newCard) => {
+          const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+          setCards(newCards);
+        })
+        .catch(err => console.log(err))
+    } else {
+      api.unLikeCard(card._id)
+        .then((newCard) => {
+          const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+          setCards(newCards);
+        })
+        .catch(err => console.log(err))
+    }
+  }
+
   return (
     <>
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
-        <Main cards={cards} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} onCardDelete={handleCardDelete} />
+        <Main cards={cards} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick}
+         onCardClick={handleCardClick} onCardDelete={handleCardDelete} onCardLike={handleCardLike} />
         <PopupEditProfile isOpen={isPopupEditProfileOpen} onClose={closeAllPopups} />
         <PopupAddPlace isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
         <PopupImage card={selectedCard} onClose={closeAllPopups} />

@@ -25,7 +25,7 @@ function Main(props) {
       </div>
       <div className="places-list root__section">
         {props.cards.slice(0, 50).map((item) => (
-          <Card key={item._id} card={ item} onCardClick={ props.onCardClick } onCardDelete={ props.onCardDelete } />
+          <Card key={item._id} card={ item} onCardClick={ props.onCardClick } onCardDelete={ props.onCardDelete } onCardLike={ props.onCardLike } />
         ))}  
       </div>
     </>
