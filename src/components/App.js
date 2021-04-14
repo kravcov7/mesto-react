@@ -70,11 +70,21 @@ function App() {
       .catch(err => console.log(err))
   }
 
+  function handleCardDelete(card) {
+    api.removeCard(card._id)
+      .then(() => {
+        const cardNew = cards.filter((c) => c._id !== card._id)
+        setCards(cardNew)
+        closeAllPopups()
+      })
+      .catch(err => console.log('Нельзя удалять чужие карточки', err))
+  }
+
   return (
     <>
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
-        <Main cards={cards} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} />
+        <Main cards={cards} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} onCardDelete={handleCardDelete} />
         <PopupEditProfile isOpen={isPopupEditProfileOpen} onClose={closeAllPopups} />
         <PopupAddPlace isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
         <PopupImage card={selectedCard} onClose={closeAllPopups} />
